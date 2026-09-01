@@ -83,20 +83,17 @@ This extension does not collect, store, or transmit any user data, personally id
 
 ---
 
-## Privacy Policy
-
-If requested by the Chrome Web Store, host the following minimal policy on GitHub Pages, Google Sites, or a Notion public link:
+If requested by the Chrome Web Store, the live privacy policy is hosted at:
+**`https://tuc.khansaad.dev/privacy.html`**
 
 ```
 Privacy Policy for Tab URL Copier
 
-Last updated: 2026-07-08
+Last updated: 2026-09-01
 
 Tab URL Copier does not collect, store, or transmit any personal data, credentials, browsing activity, or system information. All calculations and clipboard operations occur locally on your device.
 
 This extension does not use tracking cookies, analytics engines, or make external network calls. Your preferences (such as light/dark mode override) are stored locally in the browser's localStorage and never leave your machine.
-
-If you have questions, please contact support at: [YOUR_SUPPORT_EMAIL]
 ```
 
 ---
