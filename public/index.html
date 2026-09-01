@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tab URL Copier — Copy Multiple Chrome Tab URLs in One Click</title>
+  <meta name="description" content="A lightweight, privacy-focused Chrome Extension to batch copy open tab URLs in Plain Text, Markdown, HTML, or JSON format." />
+  <meta name="theme-color" content="#4f46e5" />
+  <link rel="icon" type="image/png" href="assets/icon48.png" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --primary: #4f46e5;
+      --primary-hover: #4338ca;
+      --primary-light: #eef2ff;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --bg-page: #f8fafc;
+      --bg-card: #ffffff;
+      --border-color: #e2e8f0;
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      --radius-lg: 16px;
+      --radius-md: 12px;
+      --radius-sm: 8px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --text-main: #f8fafc;
+        --text-muted: #94a3b8;
+        --bg-page: #0b0f19;
+        --bg-card: #131b2e;
+        --border-color: #1e293b;
+        --primary-light: rgba(79, 70, 229, 0.15);
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .container {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: var(--text-main);
+    }
+
+    .brand img {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    .btn-nav {
+      background: var(--primary);
+      color: #fff !important;
+      padding: 8px 16px;
+      border-radius: var(--radius-sm);
+      transition: background 0.2s;
+    }
+
+    .btn-nav:hover {
+      background: var(--primary-hover);
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 80px 0 60px;
+      text-align: center;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--primary-light);
+      color: var(--primary);
+      padding: 6px 14px;
+      border-radius: 9999px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      margin-bottom: 24px;
+      border: 1px solid rgba(79, 70, 229, 0.2);
+    }
+
+    .hero h1 {
+      font-size: 3.25rem;
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      font-size: 1.25rem;
+      color: var(--text-muted);
+      max-width: 640px;
+      margin: 0 auto 36px;
+    }
+
+    .hero-actions {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--primary);
+      color: #ffffff;
+      padding: 14px 28px;
+      border-radius: var(--radius-md);
+      font-weight: 700;
+      font-size: 1.05rem;
+      box-shadow: 0 10px 20px -5px rgba(79, 70, 229, 0.4);
+      transition: all 0.2s;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 14px 25px -5px rgba(79, 70, 229, 0.5);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--bg-card);
+      color: var(--text-main);
+      border: 1px solid var(--border-color);
+      padding: 14px 24px;
+      border-radius: var(--radius-md);
+      font-weight: 600;
+      font-size: 1.05rem;
+      transition: all 0.2s;
+    }
+
+    .btn-secondary:hover {
+      background: var(--primary-light);
+      border-color: var(--primary);
+      transform: translateY(-2px);
+    }
+
+    /* Showcase Preview */
+    .showcase {
+      margin: 50px auto 80px;
+      text-align: center;
+    }
+
+    .showcase-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-xl);
+      overflow: hidden;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 12px;
+    }
+
+    .showcase-card img {
+      width: 100%;
+      height: auto;
+      border-radius: var(--radius-md);
+      display: block;
+    }
+
+    /* Features Grid */
+    .features {
+      padding: 60px 0 80px;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .section-title h2 {
+      font-size: 2.25rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+    }
+
+    .section-title p {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+    }
+
+    .feature-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      padding: 32px;
+      border-radius: var(--radius-lg);
+      transition: all 0.2s;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+      border-color: rgba(79, 70, 229, 0.4);
+    }
+
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--primary-light);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius-md);
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+    }
+
+    .feature-card h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .feature-card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.55;
+    }
+
+    /* Formats Banner */
+    .formats-banner {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      margin: 40px 0 80px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px;
+      text-align: center;
+    }
+
+    .format-item h4 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+
+    .format-item code {
+      display: inline-block;
+      background: var(--bg-page);
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-color);
+      font-size: 0.85rem;
+      color: var(--text-main);
+    }
+
+    /* Privacy Banner */
+    .privacy-section {
+      background: linear-gradient(135deg, rgba(79, 70, 229, 0.08) 0%, rgba(6, 182, 212, 0.08) 100%);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 48px;
+      text-align: center;
+      margin-bottom: 80px;
+    }
+
+    .privacy-section h2 {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    .privacy-section p {
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto 24px;
+      font-size: 1.05rem;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border-color);
+      padding: 40px 0;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin-bottom: 16px;
+    }
+
+    .footer-links a {
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .footer-links a:hover {
+      color: var(--primary);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <nav class="navbar">
+      <div class="brand">
+        <img src="assets/icon48.png" alt="Tab URL Copier Logo" />
+        <span>Tab URL Copier</span>
+      </div>
+      <div class="nav-links">
+        <a href="#features">Features</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="https://github.com/saadkhan955/tab-url-copier" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://chromewebstore.google.com/detail/tab-url-copier/nbnehobinolaclgihaobabohgghfdlmg" target="_blank" rel="noopener" class="btn-nav">Install Extension</a>
+      </div>
+    </nav>
+
+    <header class="hero">
+      <div class="badge">
+        ✨ Version 1.2.0 • Published on Chrome Web Store
+      </div>
+      <h1>Batch Copy & Export Open Tabs <span>in Seconds</span></h1>
+      <p>
+        Select multiple browser tabs and copy their URLs to your clipboard in Plain Text, Markdown, HTML, or JSON — or export straight to a file.
+      </p>
+      <div class="hero-actions">
+        <a href="https://chromewebstore.google.com/detail/tab-url-copier/nbnehobinolaclgihaobabohgghfdlmg" target="_blank" rel="noopener" class="btn-primary">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+          </svg>
+          Add to Chrome — Free
+        </a>
+        <a href="https://github.com/saadkhan955/tab-url-copier" target="_blank" rel="noopener" class="btn-secondary">
+          View on GitHub
+        </a>
+      </div>
+    </header>
+
+    <div class="showcase">
+      <div class="showcase-card">
+        <img src="assets/screenshot_dark.jpg" alt="Tab URL Copier Dark Mode Interface" />
+      </div>
+    </div>
+
+    <section id="features" class="features">
+      <div class="section-title">
+        <h2>Built for Speed, Privacy & Power</h2>
+        <p>Everything you need to organize and share your browser tabs without the clutter.</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">📋</div>
+          <h3>Multi-Format Copying</h3>
+          <p>Export your links in Plain Text, clean Markdown links (<code>[Title](URL)</code>), HTML anchor tags, or structured JSON for developer workflows.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">💾</div>
+          <h3>One-Click File Export</h3>
+          <p>Download your tab list directly as a <code>.txt</code>, <code>.md</code>, <code>.html</code>, or <code>.json</code> file with automatic date timestamps.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🌐</div>
+          <h3>Smart Domain Grouping</h3>
+          <p>Group tabs by website domain (e.g., github.com, google.com) and select entire groups in a single click.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🔍</div>
+          <h3>Real-Time Live Search</h3>
+          <p>Instantly search and filter through hundreds of open tabs by page title or URL with zero delay.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🪟</div>
+          <h3>Multi-Window Scope</h3>
+          <p>Easily toggle between tabs in your current active window or grab all tabs across every open browser window.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🎨</div>
+          <h3>Auto Dark & Light Theme</h3>
+          <p>Automatically follows your operating system theme, with manual toggle override support and remembered user preferences.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="formats-banner">
+      <div class="format-item">
+        <h4>Plain Text</h4>
+        <code>https://example.com</code>
+      </div>
+      <div class="format-item">
+        <h4>Markdown</h4>
+        <code>[Example](https://example.com)</code>
+      </div>
+      <div class="format-item">
+        <h4>HTML Anchor</h4>
+        <code>&lt;a href="..."&gt;Example&lt;/a&gt;</code>
+      </div>
+      <div class="format-item">
+        <h4>JSON Object</h4>
+        <code>{"title": "...", "url": "..."}</code>
+      </div>
+    </div>
+
+    <section class="privacy-section">
+      <h2>🔒 100% Privacy by Design</h2>
+      <p>
+        Tab URL Copier runs strictly locally in your browser. No telemetry, no analytics, no external tracking, and zero cloud dependencies. Your browsing history never leaves your device.
+      </p>
+      <a href="privacy.html" class="btn-secondary">Read Privacy Policy</a>
+    </section>
+
+    <footer>
+      <div class="footer-links">
+        <a href="https://chromewebstore.google.com/detail/tab-url-copier/nbnehobinolaclgihaobabohgghfdlmg" target="_blank" rel="noopener">Chrome Web Store</a>
+        <a href="https://github.com/saadkhan955/tab-url-copier" target="_blank" rel="noopener">GitHub</a>
+        <a href="privacy.html">Privacy Policy</a>
+      </div>
+      <p>© 2026 Tab URL Copier. Open source and privacy-focused.</p>
+    </footer>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — Tab URL Copier</title>
+  <meta name="description" content="Privacy Policy for Tab URL Copier Chrome Extension." />
+  <link rel="icon" type="image/png" href="assets/icon48.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --primary: #4f46e5;
+      --primary-hover: #4338ca;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --bg-page: #f8fafc;
+      --bg-card: #ffffff;
+      --border-color: #e2e8f0;
+      --radius-lg: 16px;
+      --radius-md: 12px;
+      --radius-sm: 8px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --text-main: #f8fafc;
+        --text-muted: #94a3b8;
+        --bg-page: #0b0f19;
+        --bg-card: #131b2e;
+        --border-color: #1e293b;
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      line-height: 1.7;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 24px;
+    }
+
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 24px;
+      margin-bottom: 32px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--text-main);
+      text-decoration: none;
+    }
+
+    .brand img {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+    }
+
+    h1 {
+      font-size: 2.25rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .last-updated {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 24px;
+      display: block;
+    }
+
+    h2 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin: 28px 0 12px;
+      color: var(--text-main);
+    }
+
+    p, ul {
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    li {
+      margin-bottom: 8px;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <nav class="navbar">
+      <a href="index.html" class="brand">
+        <img src="assets/icon48.png" alt="Tab URL Copier Logo" />
+        <span>Tab URL Copier</span>
+      </a>
+      <a href="index.html">← Back to Home</a>
+    </nav>
+
+    <main class="card">
+      <h1>Privacy Policy</h1>
+      <span class="last-updated">Last Updated: September 1, 2026</span>
+
+      <p>
+        <strong>Tab URL Copier</strong> is dedicated to protecting your privacy. This Privacy Policy describes how the extension handles your data and confirms our zero-data-collection model.
+      </p>
+
+      <h2>1. No Data Collection</h2>
+      <p>
+        Tab URL Copier does <strong>not</strong> collect, store, transmit, or sell any personal data, browsing histories, page contents, keystrokes, or unique user identifiers.
+      </p>
+
+      <h2>2. Permissions Used & Purpose</h2>
+      <ul>
+        <li>
+          <strong><code>tabs</code></strong>: Used solely to read the URLs and titles of currently open tabs in your browser session so you can select and copy them. This data is processed completely in-memory on your device and is never transmitted anywhere.
+        </li>
+        <li>
+          <strong><code>clipboardWrite</code></strong>: Used to paste the selected formatted URLs directly into your system clipboard when you click "Copy URLs".
+        </li>
+      </ul>
+
+      <h2>3. Local Storage Preferences</h2>
+      <p>
+        The extension uses the browser's local storage (<code>localStorage</code>) strictly to save your UI preferences (such as light/dark mode selection, copy format, and domain grouping toggle). This data never leaves your computer.
+      </p>
+
+      <h2>4. Third-Party Services & Network Requests</h2>
+      <p>
+        Tab URL Copier makes <strong>zero external network requests</strong> during its operation. There are no analytics libraries, tracking scripts, ad networks, or external telemetry of any kind.
+      </p>
+
+      <h2>5. Contact</h2>
+      <p>
+        If you have any questions or feedback regarding this privacy policy or the extension, please open an issue on our GitHub repository:
+        <br />
+        <a href="https://github.com/saadkhan955/tab-url-copier" target="_blank" rel="noopener">https://github.com/saadkhan955/tab-url-copier</a>
+      </p>
+    </main>
+
+    <footer>
+      <p>© 2026 Tab URL Copier. All rights reserved.</p>
+    </footer>
+  </div>
+
+</body>
+</html>
