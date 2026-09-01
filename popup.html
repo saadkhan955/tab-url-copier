@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light dark" />
+  <title>Tab URL Copier</title>
+  <!-- Google Fonts for modern typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div class="header">
+    <div class="header-main">
+      <span class="title">Tab URL Copier</span>
+      <button id="themeToggleBtn" class="theme-toggle-btn" title="Toggle Theme" aria-label="Toggle Theme">
+        <svg class="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <!-- Monitor icon (auto mode) -->
+          <g class="icon-monitor">
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+            <line x1="8" y1="21" x2="16" y2="21"></line>
+            <line x1="12" y1="17" x2="12" y2="21"></line>
+          </g>
+          <!-- Moon icon (dark mode override) -->
+          <path class="icon-moon" d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          <!-- Sun icon (light mode override) -->
+          <g class="icon-sun">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </g>
+        </svg>
+        <span id="themeToggleBadge" class="theme-toggle-badge">Auto</span>
+      </button>
+    </div>
+    <div class="search-container">
+      <input type="search" id="tabSearch" placeholder="Search tabs..." class="search-input" aria-label="Search tabs" />
+    </div>
+    <div class="header-actions">
+      <div class="header-actions-left">
+        <button id="selectAllBtn" class="text-btn">Select all</button>
+        <button id="selectNoneBtn" class="text-btn">None</button>
+      </div>
+      <div class="header-actions-right">
+        <label class="scope-toggle" title="Search and list tabs from all open windows">
+          <input type="checkbox" id="scopeToggle" />
+          <span>All windows</span>
+        </label>
+        <label class="group-toggle" title="Group tabs by website domain">
+          <input type="checkbox" id="groupToggle" />
+          <span>Group by domain</span>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <div id="selectionBanner" class="selection-banner hidden"></div>
+
+  <div id="tabList" class="tab-list">
+    <!-- tab rows injected here -->
+  </div>
+
+  <div class="footer">
+    <div class="footer-left">
+      <span id="selectedCount" class="count">0 selected</span>
+      <select id="formatSelect" class="format-select" title="Copy Format">
+        <option value="text">Plain Text</option>
+        <option value="markdown">Markdown</option>
+        <option value="html">HTML Link</option>
+        <option value="json">JSON</option>
+      </select>
+    </div>
+    <div class="footer-actions-right-buttons">
+      <button id="exportBtn" class="secondary-btn" disabled title="Export to File">Export</button>
+      <button id="copyBtn" class="primary-btn" disabled>Copy URLs</button>
+    </div>
+  </div>
+
+  <div id="toast" class="toast hidden">Copied!</div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
