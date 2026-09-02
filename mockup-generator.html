@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Tab URL Copier Mockup</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      width: 1440px;
+      height: 900px;
+      background: radial-gradient(circle at 75% 30%, #1e1b4b 0%, #090a0f 65%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      overflow: hidden;
+      padding: 30px;
+    }
+
+    /* Browser Window Container */
+    .browser-window {
+      width: 1380px;
+      height: 840px;
+      background: #0d1117;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.05);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Browser Header / Tab Bar */
+    .browser-header {
+      background: #161b22;
+      padding: 10px 16px 0;
+      border-bottom: 1px solid #21262d;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .window-controls-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .traffic-lights {
+      display: flex;
+      gap: 8px;
+      padding-right: 8px;
+    }
+
+    .traffic-light {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+    .traffic-red { background: #ff5f56; }
+    .traffic-yellow { background: #ffbd2e; }
+    .traffic-green { background: #27c93f; }
+
+    .browser-tabs {
+      display: flex;
+      gap: 6px;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .tab {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      background: #0d1117;
+      border-radius: 8px 8px 0 0;
+      color: #c9d1d9;
+      font-size: 12px;
+      font-weight: 500;
+      max-width: 180px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      border: 1px solid #21262d;
+      border-bottom: none;
+    }
+
+    .tab.inactive {
+      background: transparent;
+      border: none;
+      color: #8b949e;
+    }
+
+    .tab-icon {
+      font-size: 13px;
+    }
+
+    /* Address Bar Row */
+    .address-bar-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding-bottom: 10px;
+    }
+
+    .nav-buttons {
+      display: flex;
+      gap: 8px;
+      color: #8b949e;
+      font-size: 14px;
+    }
+
+    .address-input {
+      flex: 1;
+      background: #0d1117;
+      border: 1px solid #30363d;
+      border-radius: 6px;
+      padding: 6px 14px;
+      color: #8b949e;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .address-input span.url-main {
+      color: #58a6ff;
+    }
+
+    .toolbar-extensions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .ext-icon-active {
+      width: 28px;
+      height: 28px;
+      background: rgba(99, 102, 241, 0.2);
+      border: 1px solid rgba(99, 102, 241, 0.4);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    /* Webpage Content Area */
+    .browser-content {
+      flex: 1;
+      background: #090c10;
+      padding: 40px;
+      color: #8b949e;
+      position: relative;
+    }
+
+    .mockup-page-hero {
+      max-width: 600px;
+      margin-top: 40px;
+    }
+
+    .mockup-page-hero h2 {
+      font-size: 32px;
+      color: #f0f6fc;
+      margin-bottom: 12px;
+    }
+
+    .mockup-page-hero p {
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    /* Extension Popup Overlay */
+    .popup-overlay {
+      position: absolute;
+      top: 10px;
+      right: 24px;
+      width: 380px;
+      background: #0f111a;
+      border: 1px solid #232838;
+      border-radius: 12px;
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(99, 102, 241, 0.25);
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* Popup Header */
+    .p-header {
+      padding: 14px 16px 10px;
+      border-bottom: 1px solid #1c2130;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .p-header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .p-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .p-theme-badge {
+      background: #1c2130;
+      color: #94a3b8;
+      border: 1px solid #2a3147;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .p-search-box {
+      width: 100%;
+      background: #141724;
+      border: 1px solid #232838;
+      border-radius: 8px;
+      padding: 8px 12px;
+      color: #94a3b8;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .p-actions-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+    }
+
+    .p-btn-group {
+      display: flex;
+      gap: 6px;
+    }
+
+    .p-btn-sm {
+      background: #1c2130;
+      color: #cbd5e1;
+      border: 1px solid #2a3147;
+      padding: 3px 8px;
+      border-radius: 5px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .p-btn-sm.active {
+      background: #4f46e5;
+      color: #fff;
+      border-color: #4f46e5;
+    }
+
+    .p-toggle-group {
+      display: flex;
+      gap: 10px;
+      color: #94a3b8;
+      font-size: 11px;
+    }
+
+    /* Popup List */
+    .p-tab-list {
+      padding: 10px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-height: 380px;
+    }
+
+    .p-tab-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #151926;
+      border: 1px solid #202638;
+      padding: 10px 12px;
+      border-radius: 8px;
+    }
+
+    .p-tab-item.selected {
+      background: #181d2e;
+      border-color: #4f46e5;
+    }
+
+    .p-checkbox {
+      width: 16px;
+      height: 16px;
+      border-radius: 4px;
+      background: #101420;
+      border: 1px solid #333d59;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 11px;
+      font-weight: bold;
+      flex-shrink: 0;
+    }
+
+    .p-checkbox.checked {
+      background: #4f46e5;
+      border-color: #4f46e5;
+    }
+
+    .p-tab-favicon {
+      width: 20px;
+      height: 20px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      flex-shrink: 0;
+    }
+
+    .p-tab-info {
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .p-tab-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #f1f5f9;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-bottom: 2px;
+    }
+
+    .p-tab-url {
+      font-size: 11px;
+      color: #64748b;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Popup Footer */
+    .p-footer {
+      padding: 12px 16px;
+      background: #111420;
+      border-top: 1px solid #1c2130;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .p-footer-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .p-count {
+      font-size: 12px;
+      font-weight: 600;
+      color: #cbd5e1;
+    }
+
+    .p-select {
+      background: #181d2e;
+      color: #cbd5e1;
+      border: 1px solid #2a3147;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 500;
+    }
+
+    .p-footer-buttons {
+      display: flex;
+      gap: 8px;
+    }
+
+    .p-btn-export {
+      background: #1e2438;
+      color: #cbd5e1;
+      border: 1px solid #2f3854;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .p-btn-copy {
+      background: #4f46e5;
+      color: #ffffff;
+      border: none;
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.4);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="browser-window">
+    <!-- Browser Top Bar -->
+    <div class="browser-header">
+      <div class="window-controls-row">
+        <div class="traffic-lights">
+          <div class="traffic-light traffic-red"></div>
+          <div class="traffic-light traffic-yellow"></div>
+          <div class="traffic-light traffic-green"></div>
+        </div>
+
+        <div class="browser-tabs">
+          <div class="tab">
+            <span class="tab-icon">🐙</span>
+            <span>GitHub — Trending</span>
+          </div>
+          <div class="tab inactive">
+            <span class="tab-icon">✨</span>
+            <span>Google Gemini</span>
+          </div>
+          <div class="tab inactive">
+            <span class="tab-icon">🤖</span>
+            <span>Claude AI</span>
+          </div>
+          <div class="tab inactive">
+            <span class="tab-icon">📚</span>
+            <span>MDN Web Docs</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Address Bar Row -->
+      <div class="address-bar-row">
+        <div class="nav-buttons">
+          <span>←</span>
+          <span>→</span>
+          <span>↻</span>
+        </div>
+
+        <div class="address-input">
+          <span>🔒</span>
+          <span>https://<span class="url-main">github.com</span>/trending</span>
+        </div>
+
+        <div class="toolbar-extensions">
+          <div class="ext-icon-active" title="Tab URL Copier Active">📋</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Webpage Content -->
+    <div class="browser-content">
+      <div class="mockup-page-hero">
+        <h2>GitHub Trending Repositories</h2>
+        <p>Explore today's most popular open-source developer tools, browser extensions, and web frameworks across the global developer community.</p>
+      </div>
+
+      <!-- Tab URL Copier Popup -->
+      <div class="popup-overlay">
+        <div class="p-header">
+          <div class="p-header-top">
+            <span class="p-title">Tab URL Copier</span>
+            <div class="p-theme-badge">
+              <span>💻</span>
+              <span>AUTO</span>
+            </div>
+          </div>
+
+          <div class="p-search-box">
+            <span>🔍</span>
+            <span>Search tabs...</span>
+          </div>
+
+          <div class="p-actions-row">
+            <div class="p-btn-group">
+              <span class="p-btn-sm active">Select all</span>
+              <span class="p-btn-sm">None</span>
+            </div>
+            <div class="p-toggle-group">
+              <span>☐ All windows</span>
+              <span>☐ Group by domain</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="p-tab-list">
+          <!-- Item 1 -->
+          <div class="p-tab-item selected">
+            <div class="p-checkbox checked">✓</div>
+            <div class="p-tab-favicon">✨</div>
+            <div class="p-tab-info">
+              <div class="p-tab-title">Google Gemini</div>
+              <div class="p-tab-url">https://gemini.google.com/app</div>
+            </div>
+          </div>
+
+          <!-- Item 2 -->
+          <div class="p-tab-item selected">
+            <div class="p-checkbox checked">✓</div>
+            <div class="p-tab-favicon">🤖</div>
+            <div class="p-tab-info">
+              <div class="p-tab-title">Claude — Anthropic</div>
+              <div class="p-tab-url">https://claude.ai/new</div>
+            </div>
+          </div>
+
+          <!-- Item 3 -->
+          <div class="p-tab-item selected">
+            <div class="p-checkbox checked">✓</div>
+            <div class="p-tab-favicon">💬</div>
+            <div class="p-tab-info">
+              <div class="p-tab-title">ChatGPT</div>
+              <div class="p-tab-url">https://chatgpt.com/</div>
+            </div>
+          </div>
+
+          <!-- Item 4 -->
+          <div class="p-tab-item">
+            <div class="p-checkbox"></div>
+            <div class="p-tab-favicon">🐙</div>
+            <div class="p-tab-info">
+              <div class="p-tab-title">GitHub Trending Repositories</div>
+              <div class="p-tab-url">https://github.com/trending</div>
+            </div>
+          </div>
+
+          <!-- Item 5 -->
+          <div class="p-tab-item">
+            <div class="p-checkbox"></div>
+            <div class="p-tab-favicon">📚</div>
+            <div class="p-tab-info">
+              <div class="p-tab-title">MDN Web Docs — JavaScript Reference</div>
+              <div class="p-tab-url">https://developer.mozilla.org/</div>
+            </div>
+          </div>
+
+          <!-- Item 6 -->
+          <div class="p-tab-item">
+            <div class="p-checkbox"></div>
+            <div class="p-tab-favicon">▶️</div>
+            <div class="p-tab-info">
+              <div class="p-tab-title">Lofi Hip Hop Radio — 24/7 Chill Beats</div>
+              <div class="p-tab-url">https://www.youtube.com/watch?v=jfKfPfyJRdk</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="p-footer">
+          <div class="p-footer-left">
+            <span class="p-count">3 selected</span>
+            <span class="p-select">Markdown ▾</span>
+          </div>
+          <div class="p-footer-buttons">
+            <span class="p-btn-export">Export</span>
+            <span class="p-btn-copy">Copy URLs</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
