@@ -13,6 +13,7 @@
   <meta property="og:title" content="Tab URL Copier — Copy &amp; Export Multiple Chrome Tab URLs" />
   <meta property="og:description" content="Copy, search, group, and export multiple Chrome tab URLs at once. Export as Plain Text, Markdown, HTML, or JSON. Free, open source, and privacy-focused." />
   <meta property="og:image" content="https://tuc.khansaad.dev/assets/marquee_promo_tile.png" />
+  <meta property="og:image:alt" content="Tab URL Copier Chrome extension user interface" />
   <meta property="og:site_name" content="Tab URL Copier" />
 
   <!-- Twitter -->
@@ -21,6 +22,7 @@
   <meta property="twitter:title" content="Tab URL Copier — Copy &amp; Export Multiple Chrome Tab URLs" />
   <meta property="twitter:description" content="Copy, search, group, and export multiple Chrome tab URLs at once. Export as Plain Text, Markdown, HTML, or JSON. Free, open source, and privacy-focused." />
   <meta property="twitter:image" content="https://tuc.khansaad.dev/assets/marquee_promo_tile.png" />
+  <meta property="twitter:image:alt" content="Tab URL Copier Chrome extension user interface" />
 
   <meta name="theme-color" content="#4f46e5" />
   <link rel="icon" type="image/png" href="assets/icon48.png" />
@@ -38,6 +40,7 @@
         "softwareVersion": "1.2.0",
         "fileSize": "13.9KB",
         "url": "https://tuc.khansaad.dev/",
+        "downloadUrl": "https://chromewebstore.google.com/detail/tab-url-copier/nbnehobinolaclgihaobabohgghfdlmg",
         "description": "Copy, search, group, and export multiple Chrome tab URLs in Plain Text, Markdown, HTML, or JSON format.",
         "offers": {
           "@type": "Offer",
@@ -56,10 +59,10 @@
         "mainEntity": [
           {
             "@type": "Question",
-            "name": "Does Tab URL Copier send my URLs anywhere?",
+            "name": "Does Tab URL Copier send my URLs to an external server?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "No. Tab URL Copier operates 100% locally in your browser memory. It contains zero external network requests, zero backend servers, and zero tracking cookies."
+              "text": "No. The Tab URL Copier extension operates 100% locally in your browser memory. It makes zero external network requests and does not transmit or collect tab data."
             }
           },
           {
@@ -67,7 +70,7 @@
             "name": "Can I select only certain tabs or filter by domain?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Yes! You can use the real-time search bar, select or deselect all tabs, or click domain group headers to toggle all tabs matching that website at once."
+              "text": "Yes! You can use the real-time search bar, select or deselect individual tabs, or click domain group headers to toggle all tabs from that website at once."
             }
           },
           {
@@ -84,7 +87,7 @@
   }
   </script>
 
-  <!-- High-Performance Zero-Tracking Native System Font Stack -->
+  <!-- Clean, Zero-Tracking Native System Font Stack -->
   <style>
     :root {
       --primary: #4f46e5;
@@ -192,6 +195,9 @@
       font-size: 13px;
       font-weight: 700;
       box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .btn-nav:hover {
@@ -380,6 +386,11 @@
       color: var(--text-muted);
     }
 
+    .demo-success {
+      color: #10b981;
+      font-weight: bold;
+    }
+
     /* Secondary Capabilities Banner */
     .capabilities-banner {
       display: grid;
@@ -468,6 +479,25 @@
       border: 1px solid var(--border-color);
       border-radius: var(--radius-lg);
       padding: 40px;
+    }
+
+    .privacy-header-box {
+      text-align: center;
+      max-width: 640px;
+      margin: 0 auto 28px;
+    }
+
+    .privacy-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      border-radius: 9999px;
+      color: #10b981;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 12px;
     }
 
     .permissions-grid {
@@ -625,12 +655,34 @@
       color: var(--text-main);
     }
 
+    /* Responsive Breakpoints */
     @media (max-width: 900px) {
-      .hero h1 { font-size: 36px; }
+      .hero h1 { font-size: 38px; }
       .workflow-grid { grid-template-columns: 1fr; }
       .capabilities-banner { grid-template-columns: 1fr 1fr; }
       .use-cases-grid { grid-template-columns: 1fr 1fr; }
       .permissions-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 680px) {
+      .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+      }
+      .nav-links {
+        width: 100%;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .btn-nav {
+        width: 100%;
+      }
+      .hero h1 { font-size: 32px; }
+      .hero-lead { font-size: 16px; }
+      .capabilities-banner { grid-template-columns: 1fr; }
+      .use-cases-grid { grid-template-columns: 1fr; }
+      .trust-strip { flex-direction: column; gap: 8px; border-radius: 16px; }
     }
   </style>
 </head>
@@ -649,7 +701,7 @@
         <a href="#privacy">Privacy &amp; Permissions</a>
         <a href="#faq">FAQ</a>
         <a href="https://github.com/saadkhan955/tab-url-copier" target="_blank" rel="noopener">GitHub</a>
-        <a href="https://chromewebstore.google.com/detail/tab-url-copier/fhkocldllnchmfekafbocojebfajiaic" target="_blank" rel="noopener" class="btn-nav">Add to Chrome</a>
+        <a href="https://chromewebstore.google.com/detail/tab-url-copier/nbnehobinolaclgihaobabohgghfdlmg" target="_blank" rel="noopener" class="btn-nav">Add to Chrome</a>
       </div>
     </nav>
 
@@ -659,14 +711,14 @@
         ✨ Version 1.2.0 • Available on Chrome Web Store
       </div>
       
-      <h1>Copy 50 Tab URLs in Seconds. <span>Not one by one.</span></h1>
+      <h1>Copy Your Tab URLs in Seconds. <span>Not one by one.</span></h1>
       
       <p class="hero-lead">
         Select the tabs you need, choose your format, and copy or export them as Plain Text, Markdown, HTML, or JSON.
       </p>
 
       <div class="hero-actions">
-        <a href="https://chromewebstore.google.com/detail/tab-url-copier/fhkocldllnchmfekafbocojebfajiaic" target="_blank" rel="noopener" class="btn-primary">
+        <a href="https://chromewebstore.google.com/detail/tab-url-copier/nbnehobinolaclgihaobabohgghfdlmg" target="_blank" rel="noopener" class="btn-primary">
           <svg width="20" height="20" viewBox="0 0 48 48">
             <defs>
               <linearGradient id="chrome-red" x1="3.2173" y1="15" x2="44.7812" y2="15" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#d93025" /><stop offset="1" stop-color="#ea4335" /></linearGradient>
@@ -690,7 +742,7 @@
       <div class="trust-strip">
         <span>Free &bull; Open Source</span>
         <span>&bull;</span>
-        <span class="highlight">13.9 KiB Footprint</span>
+        <span class="highlight">13.9 KiB</span>
         <span>&bull;</span>
         <span>No Account Required</span>
         <span>&bull;</span>
@@ -706,7 +758,7 @@
           <div>
             <span class="step-badge">Step 01 &bull; Select</span>
             <h3>Select Exactly What You Need</h3>
-            <p>Filter open tabs with instant real-time search, select whole domains with one click, or sync your highlighted Chrome tabs automatically.</p>
+            <p>Search your open tabs instantly, select individual tabs, or select an entire domain with one click.</p>
           </div>
           <div class="workflow-demo-box">
             🔍 Search: "github"<br />
@@ -733,7 +785,7 @@
             <h3>Copy or Save to File</h3>
             <p>Copy formatted URLs directly to your clipboard in a fraction of a second, or save directly as a <code>.txt</code>, <code>.md</code>, <code>.html</code>, or <code>.json</code> file.</p>
           </div>
-          <div class="workflow-demo-box" style="color:#10b981; font-weight:bold;">
+          <div class="workflow-demo-box demo-success">
             ✓ Copied 24 URLs to clipboard!<br />
             💾 Exported links.md (4.2 KB)
           </div>
@@ -784,7 +836,7 @@
             <p>Save course readings, video lectures, and syllabus links into clean notes before closing your browser tabs.</p>
           </div>
           <div class="use-case-card">
-            <h4>⚡ Tab Hoarders</h4>
+            <h4>⚡ Power Users</h4>
             <p>Search, filter, and archive hundreds of open tabs across multiple browser windows without losing your research trail.</p>
           </div>
         </div>
@@ -794,13 +846,13 @@
     <!-- Privacy & Permissions Section -->
     <section id="privacy" class="privacy-section">
       <div class="privacy-card">
-        <div style="text-align: center; max-width: 620px; margin: 0 auto 28px;">
-          <div style="display: inline-block; padding: 4px 12px; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 9999px; color: #10b981; font-size: 12px; font-weight: 700; text-transform: uppercase; margin-bottom: 12px;">
-            🔒 Private by Design &bull; Zero Network Requests
+        <div class="privacy-header-box">
+          <div class="privacy-badge">
+            🔒 Private by Design &bull; No Extension Network Requests
           </div>
           <h2 style="font-size: 28px; font-weight: 800;">Everything Happens Locally in Chrome</h2>
           <p style="font-size: 14px; color: var(--text-muted); margin-top: 8px;">
-            Tab URLs and titles never leave your device. Tab URL Copier contains zero telemetry, zero analytics, zero accounts, and zero remote servers.
+            The extension itself makes zero external network requests and does not collect or transmit your tab data. All tab URLs and titles are processed strictly in local browser memory.
           </p>
         </div>
 
@@ -830,51 +882,51 @@
       </div>
 
       <div class="faq-item">
-        <button type="button" class="faq-question" aria-expanded="false" aria-controls="faq-ans-1">
+        <button type="button" id="faq-q-1" class="faq-question" aria-expanded="false" aria-controls="faq-ans-1">
           <span>Does Tab URL Copier send my URLs to an external server?</span>
           <span class="faq-icon" aria-hidden="true">&darr;</span>
         </button>
-        <div id="faq-ans-1" class="faq-answer">
-          No. Tab URL Copier operates 100% locally in your browser session. It makes zero network calls and communicates with zero external servers.
+        <div id="faq-ans-1" class="faq-answer" role="region" aria-labelledby="faq-q-1">
+          No. The extension operates 100% locally in your browser memory. It makes zero external network requests and communicates with zero external servers.
         </div>
       </div>
 
       <div class="faq-item">
-        <button type="button" class="faq-question" aria-expanded="false" aria-controls="faq-ans-2">
+        <button type="button" id="faq-q-2" class="faq-question" aria-expanded="false" aria-controls="faq-ans-2">
           <span>Can I select only specific tabs or domains?</span>
           <span class="faq-icon" aria-hidden="true">&darr;</span>
         </button>
-        <div id="faq-ans-2" class="faq-answer">
+        <div id="faq-ans-2" class="faq-answer" role="region" aria-labelledby="faq-q-2">
           Yes. You can individually check tabs, use real-time search filtering, or click domain group headers (like github.com) to toggle all matching tabs at once.
         </div>
       </div>
 
       <div class="faq-item">
-        <button type="button" class="faq-question" aria-expanded="false" aria-controls="faq-ans-3">
+        <button type="button" id="faq-q-3" class="faq-question" aria-expanded="false" aria-controls="faq-ans-3">
           <span>What formats are supported?</span>
           <span class="faq-icon" aria-hidden="true">&darr;</span>
         </button>
-        <div id="faq-ans-3" class="faq-answer">
+        <div id="faq-ans-3" class="faq-answer" role="region" aria-labelledby="faq-q-3">
           Plain Text (newline-separated URLs), Markdown ([Title](URL)), HTML (&lt;a href="..."&gt;Title&lt;/a&gt;), and JSON arrays. You can also export directly to <code>.txt</code>, <code>.md</code>, <code>.html</code>, or <code>.json</code> files.
         </div>
       </div>
 
       <div class="faq-item">
-        <button type="button" class="faq-question" aria-expanded="false" aria-controls="faq-ans-4">
+        <button type="button" id="faq-q-4" class="faq-question" aria-expanded="false" aria-controls="faq-ans-4">
           <span>Does it work across multiple Chrome windows?</span>
           <span class="faq-icon" aria-hidden="true">&darr;</span>
         </button>
-        <div id="faq-ans-4" class="faq-answer">
+        <div id="faq-ans-4" class="faq-answer" role="region" aria-labelledby="faq-q-4">
           Yes! You can toggle between scanning tabs in your current window or across all open Chrome windows.
         </div>
       </div>
 
       <div class="faq-item">
-        <button type="button" class="faq-question" aria-expanded="false" aria-controls="faq-ans-5">
+        <button type="button" id="faq-q-5" class="faq-question" aria-expanded="false" aria-controls="faq-ans-5">
           <span>Is Tab URL Copier free?</span>
           <span class="faq-icon" aria-hidden="true">&darr;</span>
         </button>
-        <div id="faq-ans-5" class="faq-answer">
+        <div id="faq-ans-5" class="faq-answer" role="region" aria-labelledby="faq-q-5">
           Yes, Tab URL Copier is 100% free with no in-app purchases or subscriptions, and the source code is MIT-licensed on GitHub.
         </div>
       </div>
@@ -884,7 +936,7 @@
     <section class="cta-banner">
       <h2>Ready to Export Your Tabs?</h2>
       <p>Install Tab URL Copier in seconds and streamline your link workflows today.</p>
-      <a href="https://chromewebstore.google.com/detail/tab-url-copier/fhkocldllnchmfekafbocojebfajiaic" target="_blank" rel="noopener" class="btn-primary" style="background:#4f46e5;">
+      <a href="https://chromewebstore.google.com/detail/tab-url-copier/nbnehobinolaclgihaobabohgghfdlmg" target="_blank" rel="noopener" class="btn-primary">
         <span>Add to Chrome — Free</span>
       </a>
     </section>
@@ -898,7 +950,7 @@
         </div>
 
         <div class="footer-links">
-          <a href="https://chromewebstore.google.com/detail/tab-url-copier/fhkocldllnchmfekafbocojebfajiaic" target="_blank" rel="noopener">Chrome Web Store</a>
+          <a href="https://chromewebstore.google.com/detail/tab-url-copier/nbnehobinolaclgihaobabohgghfdlmg" target="_blank" rel="noopener">Chrome Web Store</a>
           <a href="https://github.com/saadkhan955/tab-url-copier" target="_blank" rel="noopener">GitHub</a>
           <a href="privacy.html">Privacy Policy</a>
           <a href="https://khansaad.dev" target="_blank" rel="noopener">Built by Saad Khan</a>
