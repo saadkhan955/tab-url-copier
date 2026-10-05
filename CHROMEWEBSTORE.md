@@ -1,6 +1,6 @@
 # Chrome Web Store Listing — Tab URL Copier
 
-> Last Updated: 2026-07-08
+> Last Updated: 2026-10-05
 
 ---
 
@@ -110,6 +110,7 @@ This extension does not use tracking cookies, analytics engines, or make externa
 
 | Version | Date | Changes | Status |
 |---------|------|---------|--------|
+| `1.3.0` | 2026-10-05 | Prioritized browser multi-selected tabs at top of list, removed popup window scrollbars and hid tab-list scrollbars for a cleaner UI, preserved display order in copy and export. | Ready for Upload |
 | `1.2.0` | 2026-07-17 | Added multi-format export (Markdown, HTML, JSON), domain grouping, real-time tab search, and multi-window scope. | Published |
 | `1.1.0` | 2026-07-08 | Upgraded UI, custom checkboxes, and added system-integrated Light/Dark theme toggling. | Published |
 
