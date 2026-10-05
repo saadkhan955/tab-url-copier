@@ -174,10 +174,23 @@ function renderTabs() {
       groups[domain].push(tab);
     });
 
-    const sortedDomains = Object.keys(groups).sort();
+    const sortedDomains = Object.keys(groups).sort((a, b) => {
+      if (hasBrowserMultiSelection) {
+        const aHasSelected = groups[a].some((t) => t.highlighted);
+        const bHasSelected = groups[b].some((t) => t.highlighted);
+        if (aHasSelected && !bHasSelected) return -1;
+        if (!aHasSelected && bHasSelected) return 1;
+      }
+      return a.localeCompare(b);
+    });
 
     sortedDomains.forEach((domain) => {
-      const domainTabs = groups[domain];
+      let domainTabs = groups[domain];
+      if (hasBrowserMultiSelection) {
+        const selected = domainTabs.filter((t) => t.highlighted);
+        const unselected = domainTabs.filter((t) => !t.highlighted);
+        domainTabs = [...selected, ...unselected];
+      }
 
       const groupContainer = document.createElement("div");
       groupContainer.className = "domain-group";
@@ -250,12 +263,20 @@ function renderTabs() {
       updateGroupCb();
     });
   } else {
-    tabs.forEach((tab) => {
+    let orderedTabs = [...tabs];
+    if (hasBrowserMultiSelection) {
+      const selected = orderedTabs.filter((tab) => tab.highlighted);
+      const unselected = orderedTabs.filter((tab) => !tab.highlighted);
+      orderedTabs = [...selected, ...unselected];
+    }
+
+    orderedTabs.forEach((tab) => {
       const row = createTabRow(tab, hasBrowserMultiSelection);
       tabListEl.appendChild(row);
     });
   }
 
+  tabListEl.scrollTop = 0;
   updateFooter();
 }
 
@@ -306,7 +327,8 @@ async function copySelectedUrls() {
   const checkboxes = Array.from(tabListEl.querySelectorAll('.tab-row input[type="checkbox"]'));
   const selectedIds = checkboxes.filter((cb) => cb.checked).map((cb) => Number(cb.dataset.tabId));
 
-  const selectedTabsList = tabs.filter((tab) => selectedIds.includes(tab.id));
+  const tabMap = new Map(tabs.map((tab) => [tab.id, tab]));
+  const selectedTabsList = selectedIds.map((id) => tabMap.get(id)).filter(Boolean);
 
   if (selectedTabsList.length === 0) return;
 
@@ -337,7 +359,8 @@ function exportSelectedUrls() {
   const checkboxes = Array.from(tabListEl.querySelectorAll('.tab-row input[type="checkbox"]'));
   const selectedIds = checkboxes.filter((cb) => cb.checked).map((cb) => Number(cb.dataset.tabId));
 
-  const selectedTabsList = tabs.filter((tab) => selectedIds.includes(tab.id));
+  const tabMap = new Map(tabs.map((tab) => [tab.id, tab]));
+  const selectedTabsList = selectedIds.map((id) => tabMap.get(id)).filter(Boolean);
 
   if (selectedTabsList.length === 0) return;
 
