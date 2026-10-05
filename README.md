@@ -2,7 +2,7 @@
 
 > **A lightweight, privacy-first Chrome extension to copy, search, group, and export open browser tabs in Plain Text, Markdown, HTML, or JSON.**
 
-[![Chrome Web Store Version](https://img.shields.io/badge/Chrome%20Web%20Store-v1.2.0-blue.svg)](https://chromewebstore.google.com/detail/tab-url-copier/nbnehobinolaclgihaobabohgghfdlmg)
+[![Chrome Web Store Version](https://img.shields.io/badge/Chrome%20Web%20Store-v1.3.0-blue.svg)](https://chromewebstore.google.com/detail/tab-url-copier/nbnehobinolaclgihaobabohgghfdlmg)
 [![Extension Size](https://img.shields.io/badge/Extension%20Size-13.9%20KiB-green.svg)](https://tuc.khansaad.dev/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Privacy: 100% Local](https://img.shields.io/badge/Privacy-100%25%20Local-emerald.svg)](https://tuc.khansaad.dev/privacy.html)
